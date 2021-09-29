@@ -92,7 +92,7 @@ namespace InteraktivBerättelse
                 Console.Clear();
                 Console.WriteLine("Vill du köra om från början? (ja/nej)");
                 //Kollar om spelaren vill köra om
-                if(Console.ReadLine().ToLower()!="ja"){
+                if(Console.ReadLine().ToLower()=="nej"){
                     körom=false;
                     Console.Clear();
                 }
