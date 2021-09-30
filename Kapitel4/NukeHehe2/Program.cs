@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Kapitel4
+namespace NukeHehe2
 {
     class Program
     {
