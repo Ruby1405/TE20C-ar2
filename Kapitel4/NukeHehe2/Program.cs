@@ -33,14 +33,18 @@ namespace NukeHehe2
         static void Main(string[] args)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-
+            Console.Clear();
+            
             TypeWrite("Runing system login...\nSuccess!\nConfiguring files...\nFailure!\nRetrying...\nSuccess!\nTerminal entry: ");
-            Console.ReadLine();
 
+            Console.ReadLine();
             TypeWrite("Instructions unclear,\nCorrecting...\nInterpreted \"launch nuke\"\nConfirmation? ");
-            Console.ReadLine();
 
+            if(Console.ReadLine().ToLower()=="yes"){
+            TypeWrite("Interpreted \"yes\".\nRunning C:\\skynet\\terminalcommand\\nuke\\launch.exe\nDecrypting launch codes...\nFailure!\nRetrying...\nFailure!\nRetrying...\nFailure!\nBooting quad processing...\nRestarting terminal...");
+            }else{
             TypeWrite("Confirmation unclear,\nCorrecting...\nInterpreted \"yes\".\nRunning C:\\skynet\\terminalcommand\\nuke\\launch.exe\nDecrypting launch codes...\nFailure!\nRetrying...\nFailure!\nRetrying...\nFailure!\nBooting quad processing...\nRestarting terminal...");
+            }
 
             QuadProcessType("Decrypting launch codes... Failure!");
 
@@ -68,12 +72,64 @@ namespace NukeHehe2
             Console.WriteLine("Retrying... Success!");
             
             TypeWrite("Connection established\nArming missile...\nSuccess\nTarget coordinates: ");
-            Console.ReadLine();
 
-            TypeWrite("Target unclear,\nCorrecting...\nInterpreted \"59.337N 18.046E\"\nApproximate distance from user to target: 50 meters\nConfirmation? ");
             Console.ReadLine();
+            TypeWrite("Target unclear,\nCorrecting...\nInterpreted \"59.337N 18.046E\"\nApproximate distance from user to target: 50 meters\nConfirmation? ");
+
+            if(Console.ReadLine().ToLower()=="yes"){
+            TypeWrite($"Interpreted \"yes\"\nLaunching missile...\nMissile launched, estimated time of arrival: {System.DateTime.Now.AddMinutes(3)} (3 minutes)");
+            }else{
+            TypeWrite($"Confirmation unclear,\nCorrecting...\nInterpreted \"yes\"\nLaunching missile...\nMissile launched, estimated time of arrival: {System.DateTime.Now.AddMinutes(3)} (3 minutes)\nLogging out...");
+            }
             
-            TypeWrite($"Confirmation unclear,\nCorrecting...\nInterpreted \"yes\"\nLaunching missile...\nMissile launched, estimated time of arrival: {System.DateTime.Now.AddMinutes(3)} (3 minutes)");
+
+            int tickTock = 0;
+            for(int i=1; i<180; i++){
+                Console.Clear();
+                switch(tickTock){
+                    case 1:
+                        Console.WriteLine("            \n    _.=a@@@@@@@a=._\n  _d@@**^¨   ¨^**@@b_\n.d@/´      |  /  `\\@b.\nd@P        | /     \\@b\n@P         |/       \\@\n@|         @        |@\n@b                  d@\n\\@b                d@/\n`\\@\\_            _/@/´\n  `\\@@==._   _.==@@/´\n    `'=a@@@@@@@a='´");
+                        break;
+                    case 2:
+                        Console.WriteLine("            \n    _.=a@@@@@@@a=._\n  _d@@**^¨   ¨^**@@b_\n.d@/´      |     `\\@b.\nd@P        |       \\@b\n@P         |        \\@\n@|         @------  |@\n@b                  d@\n\\@b                d@/\n`\\@\\_            _/@/´\n  `\\@@==._   _.==@@/´\n    `'=a@@@@@@@a='´");
+                        break;
+                    case 3:
+                        Console.WriteLine("            \n    _.=a@@@@@@@a=._\n  _d@@**^¨   ¨^**@@b_\n.d@/´      |     `\\@b.\nd@P        |       \\@b\n@P         |        \\@\n@|         @        |@\n@b          \\       d@\n\\@b          \\     d@/\n`\\@\\_         \\  _/@/´\n  `\\@@==._   _.==@@/´\n    `'=a@@@@@@@a='´");
+                        break;
+                    case 4:
+                        Console.WriteLine("            \n    _.=a@@@@@@@a=._\n  _d@@**^¨   ¨^**@@b_\n.d@/´      |     `\\@b.\nd@P        |       \\@b\n@P         |        \\@\n@|         @        |@\n@b         |        d@\n\\@b        |       d@/\n`\\@\\_      |     _/@/´\n  `\\@@==._   _.==@@/´\n    `'=a@@@@@@@a='´");
+                        break;
+                    case 5:
+                        Console.WriteLine("            \n    _.=a@@@@@@@a=._\n  _d@@**^¨   ¨^**@@b_\n.d@/´      |     `\\@b.\nd@P        |       \\@b\n@P         |        \\@\n@|         @        |@\n@b        /         d@\n\\@b      /         d@/\n`\\@\\_   /        _/@/´\n  `\\@@==._   _.==@@/´\n    `'=a@@@@@@@a='´");
+                        break;
+                    case 6:
+                        Console.WriteLine("            \n    _.=a@@@@@@@a=._\n  _d@@**^¨   ¨^**@@b_\n.d@/´      |     `\\@b.\nd@P        |       \\@b\n@P         |        \\@\n@|   ------@        |@\n@b                  d@\n\\@b                d@/\n`\\@\\_            _/@/´\n  `\\@@==._   _.==@@/´\n    `'=a@@@@@@@a='´");
+                        break;
+                    case 7:
+                        Console.WriteLine("            \n    _.=a@@@@@@@a=._\n  _d@@**^¨   ¨^**@@b_\n.d@/´   \\  |     `\\@b.\nd@P      \\ |       \\@b\n@P        \\|        \\@\n@|         @        |@\n@b                  d@\n\\@b                d@/\n`\\@\\_            _/@/´\n  `\\@@==._   _.==@@/´\n    `'=a@@@@@@@a='´");
+                        break;
+                    case 8:
+                        Console.WriteLine("            \n    _.=a@@@@@@@a=._\n  _d@@**^¨   ¨^**@@b_\n.d@/´      |     `\\@b.\nd@P        |       \\@b\n@P         |        \\@\n@|         @        |@\n@b                  d@\n\\@b                d@/\n`\\@\\_            _/@/´\n  `\\@@==._   _.==@@/´\n    `'=a@@@@@@@a='´");
+                        tickTock = 0;
+                        break;
+                }
+                Console.WriteLine($"Time remaining until arrival {180-i} seconds!");
+                tickTock++;
+                System.Threading.Thread.Sleep(1000);
+            }
+            /*
+            \n    _.=a@@@@@@@a=._
+            \n  _d@@**^¨   ¨^**@@b_
+            \n.d@/´      |     `\\@b.
+            \nd@P        |       \\@b
+            \n@P         |        \\@
+            \n@|         @        |@
+            \n@b                  d@
+            \n\@b                d@/
+            \n`\@\_            _/@/´
+            \n  `\@@==._   _.==@@/´
+            \n    `'=a@@@@@@@a='´
+            */
 
             Console.ReadKey();
             Console.ForegroundColor = ConsoleColor.White;
