@@ -1,0 +1,113 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  color: #ccc;
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #2a2d32;
+}
+
+marquee{
+    color: #404449;
+}
+
+form {
+  padding: 1%;
+  background: #444;
+  background-image: url(hacker-at-night.jpg);
+  background-size: 100% 100%;
+  width: 82vh;
+  height: 320px;
+}
+
+.flex1 {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0%;
+  margin-right: 6px;
+  margin-top: 6px;
+  margin-left: 6px;
+  padding: 0%;
+  font-size: 12px;
+}
+
+.login {
+  line-height: 32px;
+  font-size: 11px;
+  margin-right: 32px;
+  text-align: right;
+}
+
+ul {
+  list-style: none;
+}
+
+.topboxes {
+  width: 77%;
+  text-align: left;
+}
+
+.middleboxes {
+  width: 77%;
+  margin-left: 23%;
+}
+
+.middlebox {
+  width: 49%;
+}
+
+.bottombutton {
+  width: 55%;
+  font-size: 12px;
+  margin-left: 8px;
+}
+
+input[type="text"]{
+    outline: none;
+    background-color: transparent;
+    border: 1px solid #4a5466;
+    border-radius: 1px;
+    color: #fff;
+    height: 21px;
+}
+
+input[type="text"]:focus {
+  border: 1px solid #7c8593;
+}
+
+input[type="password"]{
+    outline: none;
+    background-color: transparent;
+    border: 1px solid #4a5466;
+    border-radius: 1px;
+    color: #fff;
+    height: 21px;
+}
+
+input[type="password"]:focus {
+  border: 1px solid #7c8593;
+}
+
+button{
+    outline: none;
+    background-color: rgb(58, 57, 65);
+    color: #ccc;
+    border: unset;
+    box-shadow:
+    inset 0px -10px 10px #32373E,
+    inset 0px 10px 10px #424851;
+    height: 21px;
+    text-align: left;
+    padding-left: 4px;
+    font-size: 11px;
+}
+

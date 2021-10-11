@@ -1,0 +1,87 @@
+h1 {
+  font-size: 32px;
+  font-family: monospace;
+  background-color: #331f3a;
+  margin: 0px;
+  padding: 8px;
+  color: #ccc;
+  text-shadow: -3px 0px #999;
+}
+
+body {
+  background-color: #4e3557;
+  padding: 0px;
+  margin: 0px;
+  word-spacing: 0px;
+}
+
+h2 {
+  margin: 0px;
+  padding: 0px;
+  font-size: 24px;
+  color: #222;
+  font-family: cursive; 
+}
+
+a{
+  color: #000;
+  text-decoration: none;
+}
+
+em {
+  margin: 0px;
+  padding: 0px;
+  font-size: 12px;
+  color: #333;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; 
+}
+
+p{
+  margin-bottom: 0px;
+  margin-top: 4px;
+}
+
+.streamButton {
+  background-color: #ccc;
+}
+
+.styled {
+  margin: 0;
+  border: 0;
+  line-height: 2;
+  padding: 0 10px;
+  font-size: 16px;
+  text-align: center;
+  color: #ccc;
+  text-shadow: 1px 1px 1px rgb(0, 0, 0);
+  background-color: rgb(141, 87, 153);
+  box-shadow: inset 2px 2px 3px rgba(0, 0, 0, 0.6),
+    inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+}
+
+.styled:hover {
+  background-color: rgb(91, 52, 99);
+}
+
+.styled:active {
+  background-color: #222;
+}
+
+.flex-container{
+  display: flex;
+  flex-flow: wrap;
+  list-style: none;
+  margin:0px;
+  padding: 0px;
+  justify-content:center;
+}
+
+.flex-item{
+  background-color: #ccc;
+  color: #000;
+  width: 800px;
+  border:inset 2px #222;
+  border-radius: 8px;
+  padding: 4px;
+  margin: 8px;
+}
