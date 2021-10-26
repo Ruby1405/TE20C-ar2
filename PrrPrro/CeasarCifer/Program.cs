@@ -29,7 +29,7 @@ namespace CeasarCifer
 
                 //Hur många steg ska hoppas i krypteringen
                 Console.WriteLine("How many steps to jump? (integer)");
-                int jump = int.Parse(Console.ReadLine());
+                int jump = int.Parse(Console.ReadLine()) % alphabet.Length;
 
                 //Ska krypteringen endast ge ifrån sig versaler, gemener eller behålla utgångsvärdet
                 Console.WriteLine("Only upper, lower or keep case? (u/l/k)");
