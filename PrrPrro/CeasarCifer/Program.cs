@@ -58,7 +58,7 @@ namespace CeasarCifer
                             //Börjar om från början av alfabetet om asciin blir för stor (gemena)
                             Console.Write((char)((int)encryption[i]+jump-alphabet.Length));
 
-                        }else if((int)encryption[i]+jump > 90 && (int)encryption[i] < 61){
+                        }else if((int)encryption[i]+jump > 90 && (int)encryption[i] < 97){
                             //Börjar om från början av alfabetet om asciin blir för stor (versaler)
                             Console.Write((char)((int)encryption[i]+jump-alphabet.Length));
 
@@ -75,7 +75,7 @@ namespace CeasarCifer
                             //Mellanslag krypteras inte
                             Console.Write(" ");
 
-                        }else if((int)encryption[i]+jump < 41){
+                        }else if((int)encryption[i]+jump < 65){
                             //Börjar om från slutet om asciin blir för låg (gemena)
                             Console.Write((char)((int)encryption[i]+jump+alphabet.Length));
 
