@@ -6,6 +6,7 @@ namespace CeasarCifer
     {
         static void Main(string[] args)
         {
+            //Kan kryptera små och stora bokstäver med negativa och positiva hopp
             Console.WriteLine("Running Ceasar Cifer transcryptor.");
             bool replay = true;
             string alphabet = "abcdefghijklmnopqrstuvwxyz";
