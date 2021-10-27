@@ -9,7 +9,7 @@ namespace GameOfLife
         {
             Console.Clear();
             Console.WriteLine("Running: John Conway's Game of life, adapted by Benjamin Calmerman\n---------------------------------\nFirstly let's run a test of how many cells you can display.\nThe program will write 256 numbered lines in the console.\nWhen it's done write the number of the last line before the lines get split between rows.\nPress enter to continue...");
-            Console.ReadLine();
+            Console.ReadKey();
 
             for (var i = 1; i < 256; i++)
             {
@@ -22,7 +22,7 @@ namespace GameOfLife
             Console.WriteLine("\nWhat was the last line to not get split?");
             int sizeX = int.Parse(Console.ReadLine());
             Console.WriteLine("Thank you, now the program will write 256 numbered rows, when it is done write the highest number you still see.\nPress enter to continue...");
-            Console.ReadLine();
+            Console.ReadKey();
 
             for (var i = 0; i < 256; i++)
             {
@@ -35,7 +35,9 @@ namespace GameOfLife
             int[,] futureCells = new int[sizeY,sizeX];
             Console.WriteLine($"The map will be {currentCells.GetLength(0)} rows long.");
             Console.WriteLine($"The map will be {currentCells.GetLength(1)} columns wide.\nPress enter to continue and run the program.");
-            
+            Console.ReadKey();
+            Console.Clear();
+
             while (true)
             {   
                 //Calculating future map FORTSÄTT HÄR------------------------------------
