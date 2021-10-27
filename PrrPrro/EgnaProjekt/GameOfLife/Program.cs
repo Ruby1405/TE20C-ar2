@@ -45,7 +45,87 @@ namespace GameOfLife
                 {
                     for (var x = 0; x < currentCells.GetLength(1); x++)
                     {
-                        Console.Write(currentCells[y,x]);
+                        int sum = 0;
+                        if(y==0){
+                            if(x==0){
+                                sum = 
+                                currentCells[0,1]+
+                                currentCells[1,1]+
+                                currentCells[1,0];
+                            }else if(x==currentCells.GetLength(1)){
+                                sum = 
+                                currentCells[0,currentCells.GetLength(1)-1]+
+                                currentCells[1,currentCells.GetLength(1)]+
+                                currentCells[1,currentCells.GetLength(1)-1];
+                            }else{
+                                sum = 
+                                currentCells[0,x+1]+
+                                currentCells[0+1,x+1]+
+                                currentCells[0+1,x]+
+                                currentCells[0+1,x-1]+
+                                currentCells[0,x-1];
+                            }
+                        }else if(y==currentCells.GetLength(0)){
+                            if(x==0){
+                                sum = 
+                                currentCells[currentCells.GetLength(0)-1,0]+
+                                currentCells[currentCells.GetLength(0),1]+
+                                currentCells[currentCells.GetLength(0)-1,1];
+                            }else if(x==currentCells.GetLength(1)){
+                                sum = 
+                                currentCells[currentCells.GetLength(0),currentCells.GetLength(1)-1]+
+                                currentCells[currentCells.GetLength(0)-1,currentCells.GetLength(1)-1]+
+                                currentCells[currentCells.GetLength(0)-1,currentCells.GetLength(1)];
+                            }else{
+                                sum = 
+                                currentCells[currentCells.GetLength(0),x+1]+
+                                currentCells[currentCells.GetLength(0)-1,x+1]+
+                                currentCells[currentCells.GetLength(0)-1,x]+
+                                currentCells[currentCells.GetLength(0)-1,x-1]+
+                                currentCells[currentCells.GetLength(0),x-1];
+                            }
+                        }else{
+                            if(x==0){
+                                sum =
+                                currentCells[y+1,0]+
+                                currentCells[y+1,0+1]+
+                                currentCells[y,0+1]+
+                                currentCells[y-1,0+1]+
+                                currentCells[y-1,0];
+                            }else if(x==currentCells.GetLength(1)){
+                                sum =
+                                currentCells[x+1,currentCells.GetLength(1)]+
+                                currentCells[x+1,currentCells.GetLength(1)-1]+
+                                currentCells[x,currentCells.GetLength(1)-1]+
+                                currentCells[x-1,currentCells.GetLength(1)-1]+
+                                currentCells[x-1,currentCells.GetLength(1)];
+                            }else{
+                                sum =
+                                currentCells[y-1,x+1]+
+                                currentCells[y-1,x]+
+                                currentCells[y-1,x-1]+
+                                currentCells[y,x+1]+
+                                currentCells[y,x-1]+
+                                currentCells[y+1,x+1]+
+                                currentCells[y+1,x]+
+                                currentCells[y+1,x-1];
+                            }
+                        }
+                        switch(sum){
+                            case <2:
+                                futureCells[y,x]=0;
+                            break;
+                            case 3:
+                                futureCells[y,x]=1;
+                            break;
+                            case >3:
+                                futureCells[y,x]=0;
+                            break;
+                            case 2:
+                                futureCells[y,x]=currentCells[y,x];
+                            break;
+                        }
+                        
                     }
                     Console.Write(47-y+"\n");
                 }
