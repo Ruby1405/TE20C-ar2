@@ -28,7 +28,7 @@ namespace Bilder
                 if(ball.x<5) velX *=-1;
                 if(ball.y<5) velY *=-1;
                 if(ball.x>795) velX *=-1;
-                if(ball.y>495 && ball.x>(player.x-5) && ball.x<(player.x+105)) velY *=-1;
+                if(ball.y>495)if(ball.y>550)ball.y=5;else if(ball.x>(player.x-5) && ball.x<(player.x+105))velY *=-1;
                 ball.x += velX;
                 ball.y += velY;
                 if(Raylib.IsKeyDown(KeyboardKey.KEY_RIGHT)) player.x += 5;
