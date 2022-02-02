@@ -21,7 +21,7 @@ namespace _2048
             {
                 for (var j = 0; j < cell.GetLength(1); j++)
                 {
-                    cell[i,j]=0;
+                    cell[i,j]=i+j;
                 }
             }
 
@@ -31,8 +31,13 @@ namespace _2048
                 Raylib.BeginDrawing();
                 Raylib.ClearBackground(Color.BLACK);
 
+                
+
+                for (var i = 0; i < cell.GetLength(0); i++){for (var j = 0; j < cell.GetLength(1); j++){
+                    if(cell[i,j]>0)
+                    {
+                        Raylib.DrawRectangle(i*200,j*200,200,200,Color.DARKBLUE);
+                        Raylib.DrawText($"{Math.Pow(2,cell[i,j])}",5+i*200,75+j*200,50,Color.WHITE);
+                }}}
                 Raylib.EndDrawing();
-            }
-        }
-    }
-}
+}}}}
