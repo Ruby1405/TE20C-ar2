@@ -93,10 +93,10 @@ namespace _2048
                         {
                             if(cell[k,j]!=0)
                             {
-                                var i = 1;
+                                var i = 0;
                                 while(cell[k+i,j]==0)
                                 {
-                                    if(k+i+1>=0)i++;
+                                    if(k+i+1>=cell.GetLength(0))i++;
                                     else break;
                                 }
                                 if(cell[k,j]==cell[k+i,j])
@@ -112,7 +112,7 @@ namespace _2048
                     {
                         for (var j = 0; j < cell.GetLength(1); j++)
                         {
-                            for (var k = 1; k < cell.GetLength(0); k++)
+                            for (var k = 0; k < cell.GetLength(0)-1; k++)
                             {
                                 if(cell[k,j]==0){
                                     cell[k,j]=cell[k+1,j];
