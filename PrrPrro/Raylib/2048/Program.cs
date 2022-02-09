@@ -7,8 +7,6 @@ namespace _2048
     {
         static int windowX=800;
         static int windowY=800;
-        Random generator = new Random();
-
         static void Main(string[] args)
         { 
             Raylib.InitWindow(windowX,windowY,"Board");
@@ -16,15 +14,19 @@ namespace _2048
             
             int test = 1;
             
+            Random generator = new Random();
+            
             int[,] cell = new int[4,4];
             
             for (var i = 0; i < cell.GetLength(0); i++)
             {
                 for (var j = 0; j < cell.GetLength(1); j++)
                 {
-                    cell[i,j]=j;
+                    cell[i,j]=0;
                 }
             }
+
+            cell[generator.Next(cell.GetLength(0)),generator.Next(cell.GetLength(1))]=1;
 
 
             while(!Raylib.WindowShouldClose()){
@@ -32,37 +34,131 @@ namespace _2048
                 Raylib.BeginDrawing();
                 Raylib.ClearBackground(Color.BLACK);
 
+                bool moved = false;
+
                 if(Raylib.IsKeyPressed(KeyboardKey.KEY_RIGHT))
                 {
                     for (var j = 0; j < cell.GetLength(1); j++)
                     {
-                        for (var i = cell.GetLength(0)-1; i > 0; i--)
+                        for (var k = cell.GetLength(0)-1; k > 0; k--)
                         {
-                            if(cell[i,j]==0){
-                                for (var k = 0; k <cell.GetLength(0)-2; k++)
+                            if(cell[k,j]!=0)
+                            {
+                                var i = 1;
+                                while(cell[k-i,j]==0)
                                 {
-                                    cell[i-k,j]=cell[i-k-1,j];
-                                    cell[i-k-1,j]=0;
+                                    if(k-i-1>=0)i++;
+                                    else break;
+                                }
+                                if(cell[k,j]==cell[k-i,j])
+                                {
+                                    cell[k,j]++;
+                                    cell[k-i,j]=0;
+                                    moved = true;
                                 }
                             }
+                        }
+                    }
+                    for (var i = 0; i < cell.GetLength(0); i++)
+                    {
+                        for (var j = 0; j < cell.GetLength(1); j++)
+                        {
+                            for (var k = cell.GetLength(0)-1; k > 0; k--)
+                            {
+                                if(cell[k,j]==0){
+                                    cell[k,j]=cell[k-1,j];
+                                    cell[k-1,j]=0;
+                                    moved = true;
+                                }
+                            }
+                        }
+                    }
+                    
+                    while(moved)
+                    {
+                        var i = generator.Next(cell.GetLength(0));
+                        var j =generator.Next(cell.GetLength(1));
+                        if(cell[i,j]==0)
+                        {
+                            cell[i,j]=1;
+                            break;
                         }
                     }
                 }
                 if(Raylib.IsKeyPressed(KeyboardKey.KEY_LEFT))
                 {
+                    for (var j = 0; j < cell.GetLength(1); j++)
+                    {
+                        for (var k = 1; k < cell.GetLength(0); k++)
+                        {
+                            if(cell[k,j]!=0)
+                            {
+                                var i = 1;
+                                while(cell[k+i,j]==0)
+                                {
+                                    if(k+i+1>=0)i++;
+                                    else break;
+                                }
+                                if(cell[k,j]==cell[k+i,j])
+                                {
+                                    cell[k,j]++;
+                                    cell[k+i,j]=cell.GetLength(0);
+                                    moved = true;
+                                }
+                            }
+                        }
+                    }
+                    for (var i = 0; i < cell.GetLength(0); i++)
+                    {
+                        for (var j = 0; j < cell.GetLength(1); j++)
+                        {
+                            for (var k = 1; k < cell.GetLength(0); k++)
+                            {
+                                if(cell[k,j]==0){
+                                    cell[k,j]=cell[k+1,j];
+                                    cell[k+1,j]=0;
+                                    moved = true;
+                                }
+                            }
+                        }
+                    }
                     
+                    while(moved)
+                    {
+                        var i = generator.Next(cell.GetLength(0));
+                        var j =generator.Next(cell.GetLength(1));
+                        if(cell[i,j]==0)
+                        {
+                            cell[i,j]=1;
+                            break;
+                        }
+                    }
                 }
                 if(Raylib.IsKeyPressed(KeyboardKey.KEY_UP))
                 {
-                    for (var i = 0; i < cell.GetLength(0); i++){for (var j = 0; j < cell.GetLength(1); j++){
-                        
-                    }}
+                    while(moved)
+                    {
+                        var i = generator.Next(cell.GetLength(0));
+                        var j =generator.Next(cell.GetLength(1));
+                        if(cell[i,j]==0)
+                        {
+                            cell[i,j]=1;
+                            break;
+                        }
+                    }
                 }
                 if(Raylib.IsKeyPressed(KeyboardKey.KEY_DOWN))
                 {
-                    for (var i = 0; i < cell.GetLength(0); i++){for (var j = 0; j < cell.GetLength(1); j++){
-                        
-                    }}
+                    while(moved)
+                    {
+                        var i = generator.Next(cell.GetLength(0));
+                        var j =generator.Next(cell.GetLength(1));
+                        if(cell[i,j]==0)
+                        {
+                            cell[i,j]=1;
+                            break;
+                        }
+                    }
                 }                
 
                 for (var i = 0; i < cell.GetLength(0); i++){for (var j = 0; j < cell.GetLength(1); j++){
