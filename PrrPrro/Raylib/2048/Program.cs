@@ -17,6 +17,8 @@ namespace _2048
             bool gameover = false;
 
             int test = 1;
+
+            Color shade = new Color(0, 0, 0, 16);
             
             Random generator = new Random();
             
@@ -287,7 +289,7 @@ namespace _2048
                 for (var i = 0; i < cell.GetLength(0); i++){for (var j = 0; j < cell.GetLength(1); j++){
                     if(cell[i,j]>0)
                     {
-                        Raylib.DrawRectangle(i*200+1,j*200+1,198,198,Color.DARKBLUE);
+                        Raylib.DrawRectangle(i*200+1,j*200+1,198,198,new Color((256/11)*cell[i,j]-1,0,100,255));
                         Raylib.DrawText($"{Math.Pow(2,cell[i,j])}",5+i*200+10,75+j*200,50,Color.WHITE);
                     }
                     //Raylib.DrawText($"X{i} Y{j} Value{cell[i,j]}",5+i*200+10,120+j*200,20,Color.RED);//debug
