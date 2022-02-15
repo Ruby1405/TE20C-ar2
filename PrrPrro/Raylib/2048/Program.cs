@@ -75,11 +75,11 @@ namespace _2048
                             {
                                 /*If the cell equal to 0 then if the previous cell in the movement direction isn't equal to 0
                                 tell the system movement occured*/
-                                if(cell[k,j]==0){
-                                    if(cell[k-1,j]!=0)moved = true;
+                                if(cell[k,j]==0&&cell[k-1,j]!=0){
                                     //Move the previous cell to this one
                                     cell[k,j]=cell[k-1,j];
                                     cell[k-1,j]=0;
+                                    moved = true;
                                 }
                             }
                         }
@@ -135,7 +135,7 @@ namespace _2048
                         {
                             for (var k = 0; k < cell.GetLength(0)-1; k++)
                             {
-                                if(cell[k,j]==0){
+                                if(cell[k,j]==0&&cell[k+1,j]!=0){
                                     cell[k,j]=cell[k+1,j];
                                     cell[k+1,j]=0;
                                     moved = true;
@@ -195,7 +195,7 @@ namespace _2048
                         {
                             for (var k = 0; k < cell.GetLength(1)-1; k++)
                             {
-                                if(cell[j,k]==0){
+                                if(cell[j,k]==0&&cell[j,k+1]!=0){
                                     cell[j,k]=cell[j,k+1];
                                     cell[j,k+1]=0;
                                     moved = true;
@@ -256,7 +256,7 @@ namespace _2048
                         {
                             for (var k = 1; k < cell.GetLength(1); k++)
                             {
-                                if(cell[j,k]==0){
+                                if(cell[j,k]==0&&cell[j,k-1]!=0){
                                     cell[j,k]=cell[j,k-1];
                                     cell[j,k-1]=0;
                                     moved = true;
@@ -290,7 +290,7 @@ namespace _2048
                         Raylib.DrawRectangle(i*200+1,j*200+1,198,198,Color.DARKBLUE);
                         Raylib.DrawText($"{Math.Pow(2,cell[i,j])}",5+i*200+10,75+j*200,50,Color.WHITE);
                     }
-                    Raylib.DrawText($"X{i} Y{j} Value{cell[i,j]}",5+i*200+10,120+j*200,20,Color.RED);
+                    //Raylib.DrawText($"X{i} Y{j} Value{cell[i,j]}",5+i*200+10,120+j*200,20,Color.RED);//debug
                 }}
                 Raylib.EndDrawing();
 }}}}
