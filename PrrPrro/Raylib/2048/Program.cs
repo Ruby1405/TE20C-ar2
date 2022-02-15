@@ -129,11 +129,11 @@ namespace _2048
                             }
                         }
                     }
-                    for (var i = 0; i < cell.GetLength(0); i++)
+                    for (var i = 0; i < cell.GetLength(0); i++) //Cycle through the play field
                     {
                         for (var j = 0; j < cell.GetLength(1); j++)
                         {
-                            for (var k = 0; k < cell.GetLength(0)-1; k++)
+                            for (var k = 0; k < cell.GetLength(0)-1; k++) //Check all cells to the right of a cell that is 0, if it finds a cell that isn't 0 move it and tell the system that movement occured
                             {
                                 if(cell[k,j]==0&&cell[k+1,j]!=0){
                                     cell[k,j]=cell[k+1,j];
@@ -189,11 +189,11 @@ namespace _2048
                             }
                         }
                     }
-                    for (var i = 0; i < cell.GetLength(0); i++)
+                    for (var i = 0; i < cell.GetLength(0); i++) //Cycle through the play field
                     {
                         for (var j = 0; j < cell.GetLength(1); j++)
                         {
-                            for (var k = 0; k < cell.GetLength(1)-1; k++)
+                            for (var k = 0; k < cell.GetLength(1)-1; k++) //Check all cells down from a cell that is 0, if it finds a cell that isn't 0 move it and tell the system that movement occured
                             {
                                 if(cell[j,k]==0&&cell[j,k+1]!=0){
                                     cell[j,k]=cell[j,k+1];
@@ -250,11 +250,11 @@ namespace _2048
                         }
                     }
 
-                    for (var i = 0; i < cell.GetLength(0); i++)
+                    for (var i = 0; i < cell.GetLength(0); i++) //Cycle through the play field
                     {
                         for (var j = 0; j < cell.GetLength(1); j++)
                         {
-                            for (var k = 1; k < cell.GetLength(1); k++)
+                            for (var k = 1; k < cell.GetLength(1); k++) //Check all cells up from a cell that is 0, if it finds a cell that isn't 0 move it and tell the system that movement occured
                             {
                                 if(cell[j,k]==0&&cell[j,k-1]!=0){
                                     cell[j,k]=cell[j,k-1];
