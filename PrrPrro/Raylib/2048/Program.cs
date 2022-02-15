@@ -22,15 +22,15 @@ namespace _2048
             
             int[,] cell = new int[4,4];
             
-            for (var i = 0; i < cell.GetLength(0); i++)
+            /* for (var i = 0; i < cell.GetLength(0); i++)
             {
                 for (var j = 0; j < cell.GetLength(1); j++)
                 {
                     cell[i,j]=j;
                 }
-            }
+            } */
 
-            //cell[generator.Next(cell.GetLength(0)),generator.Next(cell.GetLength(1))]=1;
+            cell[generator.Next(cell.GetLength(0)),generator.Next(cell.GetLength(1))]=1;
 
 
             while(!Raylib.WindowShouldClose()){
@@ -102,9 +102,9 @@ namespace _2048
                         cell[(int)emptyList[randomIndex].X, (int)emptyList[randomIndex].Y] = 1;
                     }
                 }
-                if(Raylib.IsKeyPressed(KeyboardKey.KEY_LEFT))
+                if(Raylib.IsKeyPressed(KeyboardKey.KEY_LEFT)) //Left key press
                 {
-                    for (var j = 0; j < cell.GetLength(1); j++)
+                    for (var j = 0; j < cell.GetLength(1); j++) //Cycle through rows top to bottomm
                     {
                         for (var k = 0; k < cell.GetLength(0)-1; k++)
                         {
@@ -164,25 +164,107 @@ namespace _2048
                 }
                 if(Raylib.IsKeyPressed(KeyboardKey.KEY_UP))
                 {
+                    for (var j = 0; j < cell.GetLength(0); j++)
+                    {
+                        for (var k = 0; k < cell.GetLength(1)-1; k++)
+                        {
+                            /* cell[j,k]=test;
+                            test++; */
+                            if(cell[j,k]!=0)
+                            {
+                                var i = 1;
+                                while(cell[j,k+i]==0) //While cell[j,k+i] is 0 ([j,k+i] is the next cell from [j,k])
+                                {
+                                    //Catches for index out of range exception, if the next cell to be checked is outside of the array it won't attempt it.
+                                    if(k+i+1<=cell.GetLength(1)-1)i++; 
+                                    else break;
+                                }
+                                //If the while loop either stops because it's found a value not equal to 0 or if it breaks check if the cells are equal and in that case combine them and tell the system movement occured.
+                                if(cell[j,k]==cell[j,k+i]) 
+                                {
+                                    cell[j,k]++;
+                                    cell[j,k+i]=0;
+                                    moved = true;
+                                }
+                            }
+                        }
+                    }
+                    for (var i = 0; i < cell.GetLength(0); i++)
+                    {
+                        for (var j = 0; j < cell.GetLength(1); j++)
+                        {
+                            for (var k = 0; k < cell.GetLength(1)-1; k++)
+                            {
+                                if(cell[j,k]==0){
+                                    cell[j,k]=cell[j,k+1];
+                                    cell[j,k+1]=0;
+                                    moved = true;
+                                }
+                            }
+                        }
+                    }
+
+                    //If movement ocurred set a random empty cell to 1
                     if(moved)
                     {
-                        List<Vector2> emptyList = new List<Vector2>();
-                        for (var i = 0; i < cell.GetLength(0); i++)
+                        List<Vector2> emptyList = new List<Vector2>(); //Make a list of coordinates
+                        for (var i = 0; i < cell.GetLength(0); i++) //Cycle through cell array
                         {
                             for (var j = 0; j < cell.GetLength(1); j++)
                             {
-                                if(cell[i,j]==0)
+                                if(cell[i,j]==0) //If the cell = 0 add it to the vector list
                                 {
                                     emptyList.Add(new Vector2(i, j));
                                 }
                             }
                         }
-                        int randomIndex = generator.Next(emptyList.Count);
+                        int randomIndex = generator.Next(emptyList.Count); //Pick a random cell from the vector list and make it 1
                         cell[(int)emptyList[randomIndex].X, (int)emptyList[randomIndex].Y] = 1;
                     }
                 }
                 if(Raylib.IsKeyPressed(KeyboardKey.KEY_DOWN))
                 {
+                    for (var j = 0; j < cell.GetLength(0); j++)
+                    {
+                        for (var k = cell.GetLength(1)-1; k > 0; k--)
+                        {
+                            /* cell[j,k]=test;
+                            test++; */
+                            if(cell[j,k]!=0)
+                            {
+                                var i = 1;
+                                while(cell[j,k-i]==0) //While cell[j,k-i] is 0 ([j,k-i] is the next cell from [j,k])
+                                {
+                                    //Catches for index out of range exception, if the next cell to be checked is outside of the array it won't attempt it.
+                                    if(k-i-1>=0)i++; 
+                                    else break;
+                                }
+                                //If the while loop either stops because it's found a value not equal to 0 or if it breaks check if the cells are equal and in that case combine them and tell the system movement occured.
+                                if(cell[j,k]==cell[j,k-i]) 
+                                {
+                                    cell[j,k]++;
+                                    cell[j,k-i]=0;
+                                    moved = true;
+                                }
+                            }
+                        }
+                    }
+
+                    for (var i = 0; i < cell.GetLength(0); i++)
+                    {
+                        for (var j = 0; j < cell.GetLength(1); j++)
+                        {
+                            for (var k = 1; k < cell.GetLength(1); k++)
+                            {
+                                if(cell[j,k]==0){
+                                    cell[j,k]=cell[j,k-1];
+                                    cell[j,k-1]=0;
+                                    moved = true;
+                                }
+                            }
+                        }
+                    }
+
                     //If movement ocurred set a random empty cell to 1
                     if(moved)
                     {
