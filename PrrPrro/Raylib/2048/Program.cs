@@ -11,10 +11,12 @@ namespace _2048
         static int windowY=800;
         static void Main(string[] args)
         { 
-            Raylib.InitWindow(windowX,windowY,"Board");
+            Raylib.InitWindow(windowX,windowY,"2048");
             Raylib.SetTargetFPS(60);
             
             bool gameover = false;
+
+            int score = 0;
 
             int test = 1;
 
@@ -65,6 +67,7 @@ namespace _2048
                                     cell[k,j]++;
                                     cell[k-i,j]=0;
                                     moved = true;
+                                    score += cell[k,j];
                                 }
                             }
                         }
@@ -127,6 +130,7 @@ namespace _2048
                                     cell[k,j]++;
                                     cell[k+i,j]=0;
                                     moved = true;
+                                    score += cell[k,j];
                                 }
                             }
                         }
@@ -187,6 +191,7 @@ namespace _2048
                                     cell[j,k]++;
                                     cell[j,k+i]=0;
                                     moved = true;
+                                    score += cell[k,j];
                                 }
                             }
                         }
@@ -247,6 +252,7 @@ namespace _2048
                                     cell[j,k]++;
                                     cell[j,k-i]=0;
                                     moved = true;
+                                    score += cell[k,j];
                                 }
                             }
                         }
@@ -294,5 +300,6 @@ namespace _2048
                     }
                     //Raylib.DrawText($"X{i} Y{j} Value{cell[i,j]}",5+i*200+10,120+j*200,20,Color.RED);//debug
                 }}
+                Raylib.DrawText($"Score: {Math.Pow(2,score)}",10,10,20,Color.WHITE);
                 Raylib.EndDrawing();
 }}}}
