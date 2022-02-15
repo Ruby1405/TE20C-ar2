@@ -14,11 +14,11 @@ namespace _2048
             Raylib.InitWindow(windowX,windowY,"2048");
             Raylib.SetTargetFPS(60);
             
-            bool gameover = false;
+            //bool gameover = false;
 
             int score = 0;
 
-            int test = 1;
+            //int test = 1;
 
             Color shade = new Color(0, 0, 0, 16);
             
@@ -88,25 +88,9 @@ namespace _2048
                                 }
                             }
                         }
-                    }
-                    //If movement ocurred set a random empty cell to 1
-                    if(moved)
-                    {
-                        List<Vector2> emptyList = new List<Vector2>(); //Make a list of coordinates
-                        for (var i = 0; i < cell.GetLength(0); i++) //Cycle through cell array
-                        {
-                            for (var j = 0; j < cell.GetLength(1); j++)
-                            {
-                                if(cell[i,j]==0) //If the cell = 0 add it to the vector list
-                                {
-                                    emptyList.Add(new Vector2(i, j));
-                                }
-                            }
-                        }
-                        int randomIndex = generator.Next(emptyList.Count); //Pick a random cell from the vector list and make it 1
-                        cell[(int)emptyList[randomIndex].X, (int)emptyList[randomIndex].Y] = 1;
-                    }
+                    }    
                 }
+
                 if(Raylib.IsKeyPressed(KeyboardKey.KEY_LEFT)) //Left key press
                 {
                     for (var j = 0; j < cell.GetLength(1); j++) //Cycle through rows top to bottomm
@@ -148,24 +132,6 @@ namespace _2048
                                 }
                             }
                         }
-                    }
-                    
-                    //If movement ocurred set a random empty cell to 1
-                    if(moved)
-                    {
-                        List<Vector2> emptyList = new List<Vector2>(); //Make a list of coordinates
-                        for (var i = 0; i < cell.GetLength(0); i++) //Cycle through cell array
-                        {
-                            for (var j = 0; j < cell.GetLength(1); j++)
-                            {
-                                if(cell[i,j]==0) //If the cell = 0 add it to the vector list
-                                {
-                                    emptyList.Add(new Vector2(i, j));
-                                }
-                            }
-                        }
-                        int randomIndex = generator.Next(emptyList.Count); //Pick a random cell from the vector list and make it 1
-                        cell[(int)emptyList[randomIndex].X, (int)emptyList[randomIndex].Y] = 1;
                     }
                 }
                 if(Raylib.IsKeyPressed(KeyboardKey.KEY_UP))
@@ -210,25 +176,8 @@ namespace _2048
                             }
                         }
                     }
-
-                    //If movement ocurred set a random empty cell to 1
-                    if(moved)
-                    {
-                        List<Vector2> emptyList = new List<Vector2>(); //Make a list of coordinates
-                        for (var i = 0; i < cell.GetLength(0); i++) //Cycle through cell array
-                        {
-                            for (var j = 0; j < cell.GetLength(1); j++)
-                            {
-                                if(cell[i,j]==0) //If the cell = 0 add it to the vector list
-                                {
-                                    emptyList.Add(new Vector2(i, j));
-                                }
-                            }
-                        }
-                        int randomIndex = generator.Next(emptyList.Count); //Pick a random cell from the vector list and make it 1
-                        cell[(int)emptyList[randomIndex].X, (int)emptyList[randomIndex].Y] = 1;
-                    }
                 }
+
                 if(Raylib.IsKeyPressed(KeyboardKey.KEY_DOWN))
                 {
                     for (var j = 0; j < cell.GetLength(0); j++)
@@ -272,24 +221,23 @@ namespace _2048
                             }
                         }
                     }
+                }
 
-                    //If movement ocurred set a random empty cell to 1
-                    if(moved)
+                if(moved) //If movement ocurred set a random empty cell to 1
+                {
+                    List<Vector2> emptyList = new List<Vector2>(); //Make a list of coordinates
+                    for (var i = 0; i < cell.GetLength(0); i++) //Cycle through cell array
                     {
-                        List<Vector2> emptyList = new List<Vector2>(); //Make a list of coordinates
-                        for (var i = 0; i < cell.GetLength(0); i++) //Cycle through cell array
+                        for (var j = 0; j < cell.GetLength(1); j++)
                         {
-                            for (var j = 0; j < cell.GetLength(1); j++)
+                            if(cell[i,j]==0) //If the cell = 0 add it to the vector list
                             {
-                                if(cell[i,j]==0) //If the cell = 0 add it to the vector list
-                                {
-                                    emptyList.Add(new Vector2(i, j));
-                                }
+                                emptyList.Add(new Vector2(i, j));
                             }
                         }
-                        int randomIndex = generator.Next(emptyList.Count); //Pick a random cell from the vector list and make it 1
-                        cell[(int)emptyList[randomIndex].X, (int)emptyList[randomIndex].Y] = 1;
                     }
+                    int randomIndex = generator.Next(emptyList.Count); //Pick a random cell from the vector list and make it 1
+                    cell[(int)emptyList[randomIndex].X, (int)emptyList[randomIndex].Y] = 1;
                 }                
 
                 for (var i = 0; i < cell.GetLength(0); i++){for (var j = 0; j < cell.GetLength(1); j++){
