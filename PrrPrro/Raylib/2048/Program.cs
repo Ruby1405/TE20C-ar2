@@ -9,6 +9,38 @@ namespace _2048
     {
         static int windowX=800;
         static int windowY=800;
+                         /* static void CellMerge(ref int[,] cell, ref int score, ref bool moved, int k, int j, int a, int b) 
+        //cell is the cell array, score is the score int, moved is the moved bool, k and j are from the loops, a and b are for directions
+        {
+            if(cell[k,j]!=0) //If cell isn't equal to 0 define i as 1
+            {
+                var i = a+b;
+                while(cell[k+a,j+b]==0) //While cell[k-i,j] is 0 ([k-i,j] is the next cell from [k,j])
+                {
+                    //Catches for index out of range exception, 
+                    //if the next cell to be checked is outside of the array it won't attempt it.
+                    if(a!=0)
+                    {
+                        if(k+a+i>=0)a++;
+                        else break;
+                    }
+                    else
+                    {
+                        if(j+b+i>=0)b++;
+                        else break;
+                    }
+                }
+                //If the while loop either stops because it's found a value not equal to 0 or if it breaks
+                //check if the cells are equal and in that case combine them and tell the system movement occured.
+                if(cell[k,j]==cell[k+a,j+b]) 
+                {
+                    cell[k,j]++;
+                    cell[k+a,j+b]=0;
+                    moved = true;
+                    score++;
+                }
+            }
+        }*/
         static void Main(string[] args)
         { 
             Raylib.InitWindow(windowX,windowY,"2048");
@@ -50,6 +82,7 @@ namespace _2048
                     {
                         for (var k = cell.GetLength(0)-1; k > 0; k--) //Cycle through columns from left to right skipping 0
                         {
+                            //CellMerge(ref cell, ref score, ref moved, k, j, -1, 0);
                             if(cell[k,j]!=0) //If cell isn't equal to 0 define i as 1
                             {
                                 var i = 1;
