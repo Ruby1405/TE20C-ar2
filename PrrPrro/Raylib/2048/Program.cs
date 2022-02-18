@@ -292,7 +292,7 @@ namespace _2048
                             {
                                 for (var k = 1; k < cell.GetLength(1); k++) //Check all cells up from a cell that is 0, if it finds a cell that isn't 0 move it and tell the system that movement occured
                                 {
-                                    if(cell[j,k]==0&&cell[j,k-1]!=0){s
+                                    if(cell[j,k]==0&&cell[j,k-1]!=0){
                                         cell[j,k]=cell[j,k-1];
                                         cell[j,k-1]=0;
                                         moved = true;
