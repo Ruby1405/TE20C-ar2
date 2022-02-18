@@ -9,35 +9,55 @@ namespace _2048
     {
         static int windowX=800;
         static int windowY=800;
+
+        static Random generator = new Random();
+
+        static void CellGen(ref int[,] cell)
+        {
+            List<Vector2> emptyList = new List<Vector2>(); //Make a list of coordinates
+            for (var i = 0; i < cell.GetLength(0); i++) //Cycle through cell array
+            {
+                for (var j = 0; j < cell.GetLength(1); j++)
+                {
+                    if(cell[i,j]==0) //If the cell = 0 add it to the vector list
+                    {
+                        emptyList.Add(new Vector2(i, j));
+                    }
+                }
+            }
+            int randomIndex = generator.Next(emptyList.Count); //Pick a random cell from the vector list and make it 1
+            cell[(int)emptyList[randomIndex].X, (int)emptyList[randomIndex].Y] = 1;
+        }
+
                          /* static void CellMerge(ref int[,] cell, ref int score, ref bool moved, int k, int j, int a, int b) 
         //cell is the cell array, score is the score int, moved is the moved bool, k and j are from the loops, a and b are for directions
         {
             if(cell[k,j]!=0) //If cell isn't equal to 0 define i as 1
             {
-                var i = a+b;
-                while(cell[k+a,j+b]==0) //While cell[k-i,j] is 0 ([k-i,j] is the next cell from [k,j])
-                {
-                    //Catches for index out of range exception, 
-                    //if the next cell to be checked is outside of the array it won't attempt it.
-                    if(a!=0)
-                    {
-                        if(k+a+i>=0)a++;
-                        else break;
-                    }
-                    else
-                    {
-                        if(j+b+i>=0)b++;
-                        else break;
-                    }
-                }
-                //If the while loop either stops because it's found a value not equal to 0 or if it breaks
-                //check if the cells are equal and in that case combine them and tell the system movement occured.
-                if(cell[k,j]==cell[k+a,j+b]) 
-                {
-                    cell[k,j]++;
-                    cell[k+a,j+b]=0;
-                    moved = true;
-                    score++;
+                var i = a+b; 
+                while(cell[k+a,j+b]==0) //While cell[k-i,j] is 0 ([k-i,j] is the next cell from [k,j]) 
+                { 
+                    //Catches for index out of range exception,  
+                    //if the next cell to be checked is outside of the array it won't attempt it. 
+                    if(a!=0) 
+                    { 
+                        if(k+a+i>=0)a++; 
+                        else break; 
+                    } 
+                    else 
+                    { 
+                        if(j+b+i>=0)b++; 
+                        else break; 
+                    } 
+                } 
+                //If the while loop either stops because it's found a value not equal to 0 or if it breaks 
+                //check if the cells are equal and in that case combine them and tell the system movement occured. 
+                if(cell[k,j]==cell[k+a,j+b])  
+                { 
+                    cell[k,j]++; 
+                    cell[k+a,j+b]=0; 
+                    moved = true; 
+                    score++; 
                 }
             }
         }*/
@@ -57,8 +77,6 @@ namespace _2048
             Vector2 size = new Vector2(4,4);
 
             Color shade = new Color(0, 0, 0, 16);
-            
-            Random generator = new Random();
 
             while(!Raylib.WindowShouldClose()){
                 
@@ -81,8 +99,6 @@ namespace _2048
                     if(Raylib.IsKeyPressed(KeyboardKey.KEY_LEFT))size.X--;
                     if(Raylib.IsKeyPressed(KeyboardKey.KEY_DOWN))size.Y++;
                     Raylib.SetWindowSize((int)size.X*200,(int)size.Y*200);
-
-
 
                     if(Raylib.IsKeyPressed(KeyboardKey.KEY_ENTER))
                     {
@@ -276,7 +292,7 @@ namespace _2048
                             {
                                 for (var k = 1; k < cell.GetLength(1); k++) //Check all cells up from a cell that is 0, if it finds a cell that isn't 0 move it and tell the system that movement occured
                                 {
-                                    if(cell[j,k]==0&&cell[j,k-1]!=0){
+                                    if(cell[j,k]==0&&cell[j,k-1]!=0){s
                                         cell[j,k]=cell[j,k-1];
                                         cell[j,k-1]=0;
                                         moved = true;
@@ -286,22 +302,7 @@ namespace _2048
                         }
                     }
 
-                    if(moved) //If movement ocurred set a random empty cell to 1
-                    {
-                        List<Vector2> emptyList = new List<Vector2>(); //Make a list of coordinates
-                        for (var i = 0; i < cell.GetLength(0); i++) //Cycle through cell array
-                        {
-                            for (var j = 0; j < cell.GetLength(1); j++)
-                            {
-                                if(cell[i,j]==0) //If the cell = 0 add it to the vector list
-                                {
-                                    emptyList.Add(new Vector2(i, j));
-                                }
-                            }
-                        }
-                        int randomIndex = generator.Next(emptyList.Count); //Pick a random cell from the vector list and make it 1
-                        cell[(int)emptyList[randomIndex].X, (int)emptyList[randomIndex].Y] = 1;
-                    }                
+                    if(moved)CellGen(ref cell); //If movement ocurred set a random empty cell to 1
 
                     for (var i = 0; i < cell.GetLength(0); i++){for (var j = 0; j < cell.GetLength(1); j++){
                         if(cell[i,j]>0)
