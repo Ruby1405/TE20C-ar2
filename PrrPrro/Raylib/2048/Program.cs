@@ -251,9 +251,12 @@ namespace _2048
                                         if(y+i<cell.GetLength(1)-1)i++;
                                         else break;
                                     }
-                                    cell[x,y]=cell[x,y+i];
-                                    cell[x,y+i]=0;
-                                    moved = true;
+                                    if(cell[x,y+i]!=0)
+                                    {
+                                        cell[x,y]=cell[x,y+i];
+                                        cell[x,y+i]=0;
+                                        moved = true;
+                                    }
                                 }
                             }
                         }
@@ -301,9 +304,12 @@ namespace _2048
                                         if(y+i>0)i--;
                                         else break;
                                     }
-                                    cell[x,y]=cell[x,y+i];
-                                    cell[x,y+i]=0;
-                                    moved = true;
+                                    if(cell[x,y+i]!=0)
+                                    {
+                                        cell[x,y]=cell[x,y+i];
+                                        cell[x,y+i]=0;
+                                        moved = true;
+                                    }
                                 }
                             }
                         }
@@ -322,10 +328,10 @@ namespace _2048
                             Raylib.DrawRectangle(i*200+1,j*200+1,198,198,new Color(255,255,100,255));
                             Raylib.DrawText($"{Math.Pow(2,cell[i,j])}",5+i*200+10,75+j*200,50,Color.WHITE);
                         }
-                        Raylib.DrawText($"X{i} Y{j} Value{cell[i,j]}",5+i*200+10,120+j*200,20,Color.RED);//debug
+                        //Raylib.DrawText($"X{i} Y{j} Value{cell[i,j]}",5+i*200+10,120+j*200,20,Color.RED);//debug
                         
                     }}
-                    //Raylib.DrawText($"Score: {score}",10,10,20,Color.WHITE);
+                    Raylib.DrawText($"Score: {score}",10,10,20,Color.WHITE);
                 }
                 Raylib.EndDrawing();
 }}}}
