@@ -288,17 +288,22 @@ namespace _2048
                             }
                         }
 
-                        for (var i = 0; i < cell.GetLength(0); i++) //Cycle through the play field
+
+                        for (var x = 0; x < cell.GetLength(0); x++)
                         {
-                            for (var j = 0; j < cell.GetLength(1); j++)
+                            for (var y = cell.GetLength(1)-1; y > 1; y--)
                             {
-                                for (var k = 1; k < cell.GetLength(1); k++) //Check all cells up from a cell that is 0, if it finds a cell that isn't 0 move it and tell the system that movement occured
+                                if(cell[x,y]==0)
                                 {
-                                    if(cell[j,k]==0&&cell[j,k-1]!=0){
-                                        cell[j,k]=cell[j,k-1];
-                                        cell[j,k-1]=0;
-                                        moved = true;
+                                    var i = -1;
+                                    while(cell[x,y+i]==0)
+                                    {
+                                        if(y+i>0)i--;
+                                        else break;
                                     }
+                                    cell[x,y]=cell[x,y+i];
+                                    cell[x,y+i]=0;
+                                    moved = true;
                                 }
                             }
                         }
