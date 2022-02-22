@@ -325,7 +325,7 @@ namespace _2048
                         Raylib.DrawText($"X{i} Y{j} Value{cell[i,j]}",5+i*200+10,120+j*200,20,Color.RED);//debug
                         
                     }}
-                    Raylib.DrawText($"Score: {score}",10,10,20,Color.WHITE);
+                    //Raylib.DrawText($"Score: {score}",10,10,20,Color.WHITE);
                 }
                 Raylib.EndDrawing();
 }}}}
