@@ -12,6 +12,10 @@ namespace _2048
 
         static Random generator = new Random();
 
+        /// <summary>
+        /// Generates a new 2 by making a list of empty cells and picking one
+        /// </summary>
+        /// <param name="cell"></param>
         static void CellGen(ref int[,] cell)
         {
             List<Vector2> emptyList = new List<Vector2>(); //Make a list of coordinates
@@ -28,39 +32,51 @@ namespace _2048
             int randomIndex = generator.Next(emptyList.Count); //Pick a random cell from the vector list and make it 1
             cell[(int)emptyList[randomIndex].X, (int)emptyList[randomIndex].Y] = 1;
         }
+        
+        /// <summary>
+        /// Moves all cells that can be moved right right and merges all cells that can be merged right right
+        /// </summary>
+        /// <param name="cell"></param>
+        /// <param name="score"></param>
+        /// <param name="moved"></param>
+        static void MoveRight(ref int[,] cell, ref int score, ref bool moved)
+        {
 
-        /* static void CellMerge(ref int[,] cell, ref int score, ref bool moved, int k, int j, int a, int b) 
-//cell is the cell array, score is the score int, moved is the moved bool, k and j are from the loops, a and b are for directions
-{
-if(cell[k,j]!=0) //If cell isn't equal to 0 define i as 1
-{
-var i = a+b; 
-while(cell[k+a,j+b]==0) //While cell[k-i,j] is 0 ([k-i,j] is the next cell from [k,j]) 
-{ 
-   //Catches for index out of range exception,  
-   //if the next cell to be checked is outside of the array it won't attempt it. 
-   if(a!=0) 
-   { 
-       if(k+a+i>=0)a++; 
-       else break; 
-   } 
-   else 
-   { 
-       if(j+b+i>=0)b++; 
-       else break; 
-   } 
-} 
-//If the while loop either stops because it's found a value not equal to 0 or if it breaks 
-//check if the cells are equal and in that case combine them and tell the system movement occured. 
-if(cell[k,j]==cell[k+a,j+b])  
-{ 
-   cell[k,j]++; 
-   cell[k+a,j+b]=0; 
-   moved = true; 
-   score++; 
-}
-}
-}*/
+        }
+
+        /// <summary>
+        /// Moves all cells that can be moved left left and merges all cells that can be merged left left
+        /// </summary>
+        /// <param name="cell"></param>
+        /// <param name="score"></param>
+        /// <param name="moved"></param>
+        static void MoveLeft(ref int[,] cell, ref int score, ref bool moved)
+        {
+
+        }
+
+        /// <summary>
+        /// Moves all cells that can be moved up up and merges all cells that can be merged up up
+        /// </summary>
+        /// <param name="cell"></param>
+        /// <param name="score"></param>
+        /// <param name="moved"></param>
+        static void MoveUp(ref int[,] cell, ref int score, ref bool moved)
+        {
+
+        }
+
+        /// <summary>
+        /// Moves all cells that can be moved up up and merges all cells that can be merged up up
+        /// </summary>
+        /// <param name="cell"></param>
+        /// <param name="score"></param>
+        /// <param name="moved"></param>
+        static void MoveDown(ref int[,] cell, ref int score, ref bool moved)
+        {
+
+        }
+
         static void Main(string[] args)
         {
             Raylib.InitWindow(windowX, windowY, "2048");
