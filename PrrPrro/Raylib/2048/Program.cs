@@ -294,7 +294,7 @@ namespace _2048
 
                         for (var x = 0; x < cell.GetLength(0); x++)
                         {
-                            for (var y = cell.GetLength(1)-1; y > 1; y--)
+                            for (var y = cell.GetLength(1)-1; y > 0; y--)
                             {
                                 if(cell[x,y]==0)
                                 {
