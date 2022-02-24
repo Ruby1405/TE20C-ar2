@@ -41,7 +41,47 @@ namespace _2048
         /// <param name="moved"></param>
         static void MoveRight(ref int[,] cell, ref int score, ref bool moved)
         {
-
+            for (var y = 0; y < cell.GetLength(1); y++) //Cycle through rows top to bottomm
+            {
+                for (var x = cell.GetLength(0) - 1; x > 0; x--) //Cycle through columns from left to right skipping 0
+                {
+                    if (cell[x, y] != 0) //If cell isn't equal to 0 define i as 1
+                    {
+                        var i = 1;
+                        while (cell[x - i, y] == 0) //While cell[x-i,y] is 0 ([x-i,y] is the next cell from [x,y])
+                        {
+                            //Catches for index out of range exception, if the next cell to be checked is outside of the array it won't attempt it.
+                            if (x - i - 1 >= 0) i++;
+                            else break;
+                        }
+                        //If the while loop either stops because it's found a value not equal to 0 or if it breaks check if the cells are equal and in that case combine them and tell the system movement occured.
+                        if (cell[x, y] == cell[x - i, y])
+                        {
+                            cell[x, y]++;
+                            cell[x - i, y] = 0;
+                            moved = true;
+                            score++;
+                        }
+                    }
+                }
+            }
+            for (var i = 0; i < cell.GetLength(0); i++) //Cycle through columns, left to right
+            {
+                for (var j = 0; j < cell.GetLength(1); j++) //Cycle through rows top to bottom
+                {
+                    for (var k = cell.GetLength(0) - 1; k > 0; k--) //Cycles through cells on the same row
+                    {
+                        //If the cell equal to 0 then if the previous cell in the movement direction isn't equal to 0 tell the system movement occured
+                        if (cell[k, j] == 0 && cell[k - 1, j] != 0)
+                        {
+                            //Move the previous cell to this one
+                            cell[k, j] = cell[k - 1, j];
+                            cell[k - 1, j] = 0;
+                            moved = true;
+                        }
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -52,7 +92,45 @@ namespace _2048
         /// <param name="moved"></param>
         static void MoveLeft(ref int[,] cell, ref int score, ref bool moved)
         {
-
+            for (var y = 0; y < cell.GetLength(1); y++) //Cycle through rows top to bottomm
+            {
+                for (var x = 0; x < cell.GetLength(0) - 1; x++) //Cycle through columns from first to second last
+                {
+                    if (cell[x, y] != 0)
+                    {
+                        var i = 1;
+                        while (cell[x + i, y] == 0) //While cell[x+i,y] is 0 ([x+i,y] is the next cell from [x,y])
+                        {
+                            //Catches for index out of range exception, if the next cell to be checked is outside of the array it won't attempt it.
+                            if (x + i + 1 <= cell.GetLength(0) - 1) i++;
+                            else break;
+                        }
+                        //If the while loop either stops because it's found a value not equal to 0 or if it breaks check if the cells are equal and in that case combine them and tell the system movement occured.
+                        if (cell[x, y] == cell[x + i, y])
+                        {
+                            cell[x, y]++;
+                            cell[x + i, y] = 0;
+                            moved = true;
+                            score++;
+                        }
+                    }
+                }
+            }
+            for (var i = 0; i < cell.GetLength(0); i++) //Cycle through the play field
+            {
+                for (var j = 0; j < cell.GetLength(1); j++)
+                {
+                    for (var k = 0; k < cell.GetLength(0) - 1; k++) //Check all cells to the right of a cell that is 0, if it finds a cell that isn't 0 move it and tell the system that movement occured
+                    {
+                        if (cell[k, j] == 0 && cell[k + 1, j] != 0)
+                        {
+                            cell[k, j] = cell[k + 1, j];
+                            cell[k + 1, j] = 0;
+                            moved = true;
+                        }
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -63,7 +141,52 @@ namespace _2048
         /// <param name="moved"></param>
         static void MoveUp(ref int[,] cell, ref int score, ref bool moved)
         {
+            for (var x = 0; x < cell.GetLength(0); x++)
+            {
+                for (var y = 0; y < cell.GetLength(1) - 1; y++)
+                {
+                    if (cell[x, y] != 0)
+                    {
+                        var i = 1;
+                        while (cell[x, y + i] == 0) //While cell[x,y+i] is 0 ([x,y+i] is the next cell from [x,y])
+                        {
+                            //Catches for index out of range exception, if the next cell to be checked is outside of the array it won't attempt it.
+                            if (y + i + 1 <= cell.GetLength(1) - 1) i++;
+                            else break;
+                        }
+                        //If the while loop either stops because it's found a value not equal to 0 or if it breaks check if the cells are equal and in that case combine them and tell the system movement occured.
+                        if (cell[x, y] == cell[x, y + i])
+                        {
+                            cell[x, y]++;
+                            cell[x, y + i] = 0;
+                            moved = true;
+                            score++;
+                        }
+                    }
+                }
+            }
 
+            for (var x = 0; x < cell.GetLength(0); x++)
+            {
+                for (var y = 0; y < cell.GetLength(1) - 1; y++)
+                {
+                    if (cell[x, y] == 0)
+                    {
+                        var i = 1;
+                        while (cell[x, y + i] == 0)
+                        {
+                            if (y + i < cell.GetLength(1) - 1) i++;
+                            else break;
+                        }
+                        if (cell[x, y + i] != 0)
+                        {
+                            cell[x, y] = cell[x, y + i];
+                            cell[x, y + i] = 0;
+                            moved = true;
+                        }
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -74,7 +197,54 @@ namespace _2048
         /// <param name="moved"></param>
         static void MoveDown(ref int[,] cell, ref int score, ref bool moved)
         {
+            
+            for (var x = 0; x < cell.GetLength(0); x++)
+            {
+                for (var y = cell.GetLength(1) - 1; y > 0; y--)
+                {
+                    if (cell[x, y] != 0)
+                    {
+                        var i = 1;
+                        while (cell[x, y - i] == 0) //While cell[x,y-i] is 0 ([x,y-i] is the next cell from [x,y])
+                        {
+                            //Catches for index out of range exception, if the next cell to be checked is outside of the array it won't attempt it.
+                            if (y - i - 1 >= 0) i++;
+                            else break;
+                        }
+                        //If the while loop either stops because it's found a value not equal to 0 or if it breaks check if the cells are equal and in that case combine them and tell the system movement occured.
+                        if (cell[x, y] == cell[x, y - i])
+                        {
+                            cell[x, y]++;
+                            cell[x, y - i] = 0;
+                            moved = true;
+                            score++;
+                        }
+                    }
+                }
+            }
 
+
+            for (var x = 0; x < cell.GetLength(0); x++)
+            {
+                for (var y = cell.GetLength(1) - 1; y > 0; y--)
+                {
+                    if (cell[x, y] == 0)
+                    {
+                        var i = -1;
+                        while (cell[x, y + i] == 0)
+                        {
+                            if (y + i > 0) i--;
+                            else break;
+                        }
+                        if (cell[x, y + i] != 0)
+                        {
+                            cell[x, y] = cell[x, y + i];
+                            cell[x, y + i] = 0;
+                            moved = true;
+                        }
+                    }
+                }
+            }
         }
 
         static void Main(string[] args)
@@ -85,8 +255,6 @@ namespace _2048
             int scene = 0;
 
             int score = 0;
-
-            //int test = 1;
 
             int[,] cell = { { 0 }, { 0 } };
 
@@ -136,203 +304,15 @@ namespace _2048
 
                 if (scene == 1)
                 {
-
                     bool moved = false;
 
-                    if (Raylib.IsKeyPressed(KeyboardKey.KEY_RIGHT)) //Right key press
-                    {
-                        for (var y = 0; y < cell.GetLength(1); y++) //Cycle through rows top to bottomm
-                        {
-                            for (var x = cell.GetLength(0) - 1; x > 0; x--) //Cycle through columns from left to right skipping 0
-                            {
-                                //CellMerge(ref cell, ref score, ref moved, x, y, -1, 0);
-                                if (cell[x, y] != 0) //If cell isn't equal to 0 define i as 1
-                                {
-                                    var i = 1;
-                                    while (cell[x - i, y] == 0) //While cell[x-i,y] is 0 ([x-i,y] is the next cell from [x,y])
-                                    {
-                                        //Catches for index out of range exception, if the next cell to be checked is outside of the array it won't attempt it.
-                                        if (x - i - 1 >= 0) i++;
-                                        else break;
-                                    }
-                                    //If the while loop either stops because it's found a value not equal to 0 or if it breaks check if the cells are equal and in that case combine them and tell the system movement occured.
-                                    if (cell[x, y] == cell[x - i, y])
-                                    {
-                                        cell[x, y]++;
-                                        cell[x - i, y] = 0;
-                                        moved = true;
-                                        score++;
-                                    }
-                                }
-                            }
-                        }
-                        for (var i = 0; i < cell.GetLength(0); i++) //Cycle through columns, left to right
-                        {
-                            for (var j = 0; j < cell.GetLength(1); j++) //Cycle through rows top to bottom
-                            {
-                                for (var k = cell.GetLength(0) - 1; k > 0; k--) //Cycles through cells on the same row
-                                {
-                                    //If the cell equal to 0 then if the previous cell in the movement direction isn't equal to 0 tell the system movement occured
-                                    if (cell[k, j] == 0 && cell[k - 1, j] != 0)
-                                    {
-                                        //Move the previous cell to this one
-                                        cell[k, j] = cell[k - 1, j];
-                                        cell[k - 1, j] = 0;
-                                        moved = true;
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    if (Raylib.IsKeyPressed(KeyboardKey.KEY_RIGHT)) MoveRight(ref cell, ref score, ref moved);
 
-                    if (Raylib.IsKeyPressed(KeyboardKey.KEY_LEFT)) //Left key press
-                    {
-                        for (var y = 0; y < cell.GetLength(1); y++) //Cycle through rows top to bottomm
-                        {
-                            for (var x = 0; x < cell.GetLength(0) - 1; x++)
-                            {
-                                /* cell[x,y]=test;
-                                test++; */
-                                if (cell[x, y] != 0)
-                                {
-                                    var i = 1;
-                                    while (cell[x + i, y] == 0) //While cell[x+i,y] is 0 ([x+i,y] is the next cell from [x,y])
-                                    {
-                                        //Catches for index out of range exception, if the next cell to be checked is outside of the array it won't attempt it.
-                                        if (x + i + 1 <= cell.GetLength(0) - 1) i++;
-                                        else break;
-                                    }
-                                    //If the while loop either stops because it's found a value not equal to 0 or if it breaks check if the cells are equal and in that case combine them and tell the system movement occured.
-                                    if (cell[x, y] == cell[x + i, y])
-                                    {
-                                        cell[x, y]++;
-                                        cell[x + i, y] = 0;
-                                        moved = true;
-                                        score++;
-                                    }
-                                }
-                            }
-                        }
-                        for (var i = 0; i < cell.GetLength(0); i++) //Cycle through the play field
-                        {
-                            for (var j = 0; j < cell.GetLength(1); j++)
-                            {
-                                for (var k = 0; k < cell.GetLength(0) - 1; k++) //Check all cells to the right of a cell that is 0, if it finds a cell that isn't 0 move it and tell the system that movement occured
-                                {
-                                    if (cell[k, j] == 0 && cell[k + 1, j] != 0)
-                                    {
-                                        cell[k, j] = cell[k + 1, j];
-                                        cell[k + 1, j] = 0;
-                                        moved = true;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    if (Raylib.IsKeyPressed(KeyboardKey.KEY_UP))
-                    {
-                        for (var x = 0; x < cell.GetLength(0); x++)
-                        {
-                            for (var y = 0; y < cell.GetLength(1) - 1; y++)
-                            {
-                                /* cell[x,y]=test;
-                                test++; */
-                                if (cell[x, y] != 0)
-                                {
-                                    var i = 1;
-                                    while (cell[x, y + i] == 0) //While cell[x,y+i] is 0 ([x,y+i] is the next cell from [x,y])
-                                    {
-                                        //Catches for index out of range exception, if the next cell to be checked is outside of the array it won't attempt it.
-                                        if (y + i + 1 <= cell.GetLength(1) - 1) i++;
-                                        else break;
-                                    }
-                                    //If the while loop either stops because it's found a value not equal to 0 or if it breaks check if the cells are equal and in that case combine them and tell the system movement occured.
-                                    if (cell[x, y] == cell[x, y + i])
-                                    {
-                                        cell[x, y]++;
-                                        cell[x, y + i] = 0;
-                                        moved = true;
-                                        score++;
-                                    }
-                                }
-                            }
-                        }
+                    if (Raylib.IsKeyPressed(KeyboardKey.KEY_LEFT)) MoveLeft(ref cell, ref score, ref moved);
 
-                        for (var x = 0; x < cell.GetLength(0); x++)
-                        {
-                            for (var y = 0; y < cell.GetLength(1) - 1; y++)
-                            {
-                                if (cell[x, y] == 0)
-                                {
-                                    var i = 1;
-                                    while (cell[x, y + i] == 0)
-                                    {
-                                        if (y + i < cell.GetLength(1) - 1) i++;
-                                        else break;
-                                    }
-                                    if (cell[x, y + i] != 0)
-                                    {
-                                        cell[x, y] = cell[x, y + i];
-                                        cell[x, y + i] = 0;
-                                        moved = true;
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    if (Raylib.IsKeyPressed(KeyboardKey.KEY_UP)) MoveUp(ref cell, ref score, ref moved);
 
-                    if (Raylib.IsKeyPressed(KeyboardKey.KEY_DOWN))
-                    {
-                        for (var x = 0; x < cell.GetLength(0); x++)
-                        {
-                            for (var y = cell.GetLength(1) - 1; y > 0; y--)
-                            {
-                                /* cell[x,y]=test;
-                                test++; */
-                                if (cell[x, y] != 0)
-                                {
-                                    var i = 1;
-                                    while (cell[x, y - i] == 0) //While cell[x,y-i] is 0 ([x,y-i] is the next cell from [x,y])
-                                    {
-                                        //Catches for index out of range exception, if the next cell to be checked is outside of the array it won't attempt it.
-                                        if (y - i - 1 >= 0) i++;
-                                        else break;
-                                    }
-                                    //If the while loop either stops because it's found a value not equal to 0 or if it breaks check if the cells are equal and in that case combine them and tell the system movement occured.
-                                    if (cell[x, y] == cell[x, y - i])
-                                    {
-                                        cell[x, y]++;
-                                        cell[x, y - i] = 0;
-                                        moved = true;
-                                        score++;
-                                    }
-                                }
-                            }
-                        }
-
-
-                        for (var x = 0; x < cell.GetLength(0); x++)
-                        {
-                            for (var y = cell.GetLength(1) - 1; y > 0; y--)
-                            {
-                                if (cell[x, y] == 0)
-                                {
-                                    var i = -1;
-                                    while (cell[x, y + i] == 0)
-                                    {
-                                        if (y + i > 0) i--;
-                                        else break;
-                                    }
-                                    if (cell[x, y + i] != 0)
-                                    {
-                                        cell[x, y] = cell[x, y + i];
-                                        cell[x, y + i] = 0;
-                                        moved = true;
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    if (Raylib.IsKeyPressed(KeyboardKey.KEY_DOWN)) MoveDown(ref cell, ref score, ref moved);
 
                     if (moved) CellGen(ref cell); //If movement ocurred set a random empty cell to 1
 
