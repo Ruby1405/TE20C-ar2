@@ -19,59 +19,111 @@ namespace GameOfLifeCellVectorBased
             //Initiate the camera position
             Vector2 cameraPos = new Vector2(0,0);
 
+            //Initiate the edit mode cursor
+            Vector2 editCursor = new Vector2(0,0);
+
+            //Edit mode boolean
+            bool editMode = true;
+
             //Initiate a list of current cells and one of potential new cells and new cells
             List<Vector2> cells = new List<Vector2>();
             List<Vector2> potentialCells = new List<Vector2>();
             List<Vector2> newCells = new List<Vector2>();
 
+            cells.Add(new Vector2(0,0));
+            cells.Add(new Vector2(0,2));
+            cells.Add(new Vector2(2,2));
+
             //Game loop
             while(!Raylib.WindowShouldClose()){
+                Raylib.BeginDrawing();
+                Raylib.ClearBackground(new Color(0,0,0,255));
+                
+                if (Raylib.IsKeyDown(KeyboardKey.KEY_A)) cameraPos.X++;
+                if (Raylib.IsKeyDown(KeyboardKey.KEY_D)) cameraPos.X--;
+                if (Raylib.IsKeyDown(KeyboardKey.KEY_W)) cameraPos.Y++;
+                if (Raylib.IsKeyDown(KeyboardKey.KEY_S)) cameraPos.Y--;
+                if (Raylib.IsKeyPressed(KeyboardKey.KEY_SPACE)) editMode=!editMode;
 
-                //For every cell add all cells in a 3 by 3 area to potential new cells
-                foreach (var cell in cells)
+                if (editMode)
                 {
-                    for (var X = -1; X < 1; X++)
+                    editCursor.X = (float)Math.Round(Raylib.GetMouseX()/zoom/2);
+                    editCursor.Y = (float)Math.Round(Raylib.GetMouseY()/zoom/2);
+                    for (var i = 0; i < 10; i++)
                     {
-                        for (var Y = -1; Y < 1; Y++)
-                        {
-                            potentialCells.Add(new Vector2(cell.X+X,cell.Y+Y));
-                        }
+                        Raylib.DrawLine
+                        (
+                            (int)((editCursor.X-5+i)*zoom/2),
+                            (int)((editCursor.Y+5)*zoom/2),
+                            (int)((editCursor.X-5+i)*zoom/2),
+                            (int)((editCursor.Y-5)*zoom/2),
+                            new Color(0,0,255,255)
+                        );
+                    }
+                    for (var i = 0; i < 10; i++)
+                    {
+                        Raylib.DrawLine
+                        (
+                            (int)((editCursor.X+5)*zoom/2),
+                            (int)((editCursor.Y-5+i)*zoom/2),
+                            (int)((editCursor.X-5)*zoom/2),
+                            (int)((editCursor.Y-5+i)*zoom/2),
+                            new Color(0,0,255,255)
+                        );
                     }
                 }
-
-                //Count the amount of occurences of a cell in the potential cells list
-                foreach (var cell in potentialCells)
+                else
                 {
-                    int newCellCount=0;
-                    foreach (var cell2 in potentialCells)
+                    //For every cell add all cells in a 3 by 3 area to potential new cells
+                    foreach (var cell in cells)
                     {
-                        if (cell==cell2)
+                        for (var X = -1; X < 1; X++)
                         {
-                            newCellCount++;
-                            potentialCells.Remove(cell2);
+                            for (var Y = -1; Y < 1; Y++)
+                            {
+                                potentialCells.Add(new Vector2(cell.X+X,cell.Y+Y));
+                            }
                         }
                     }
 
-                    //Refer to the rules of game of life
-                    if((newCellCount == 3 && !cells.Contains(cell)) || (newCellCount > 2 && newCellCount < 5 && cells.Contains(cell)))
+                    //Count the amount of occurences of a cell in the potential cells list
+                    foreach (var cell in potentialCells)
                     {
-                        newCells.Add(cell);
+                        int newCellCount=0;
+                        foreach (var cell2 in potentialCells)
+                        {
+                            if (cell==cell2)
+                            {
+                                newCellCount++;
+                                potentialCells.Remove(cell2);
+                            }
+                        }
+
+                        //Refer to the rules of game of life
+                        if((newCellCount == 3 && !cells.Contains(cell)) || (newCellCount > 2 && newCellCount < 5 && cells.Contains(cell)))
+                        {
+                            newCells.Add(cell);
+                        }
                     }
+                    //Set cells to newCells and clear potential and new
+                    cells = newCells;
+                    newCells.Clear();
+                    potentialCells.Clear();
                 }
-                //Set cells to newCells and clear potential and new
-                cells = newCells;
-                newCells.Clear();
-                potentialCells.Clear();
 
                 foreach (var cell in cells)
                 {
                     Raylib.DrawRectangle(
-                    (int)(cell.X*zoom/2),
-                    (int)(cell.Y*zoom/2),
+                    (int)((cell.X-cameraPos.X)*zoom/2)+1,
+                    (int)((cell.Y-cameraPos.Y)*zoom/2)+1,
                     (int)((zoom/2)-(zoom/20)),
                     (int)((zoom/2)-(zoom/20)),
-                    new Color(255,0,0,255));
+                    new Color(255,255,0,255));
                 }
+
+                Raylib.DrawText($"Campos:{cameraPos.X},{cameraPos.Y}\nMouse:{Raylib.GetMouseX()},{Raylib.GetMouseY()}\nCursor:{editCursor.X},{editCursor.Y}",5,100,20,new Color(255,0,0,255));
+
+                Raylib.EndDrawing();
             }
         }
     }
