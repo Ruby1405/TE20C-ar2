@@ -142,6 +142,7 @@ namespace GameOfLifeCellVectorBased
                         cells = new List<Vector2>(newCells);
                         newCells.Clear();
                         potentialCells.Clear();
+                        checkedCells.Clear();
 
                         gCoolDown += 1/targetGPS;
                     }
