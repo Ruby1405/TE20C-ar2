@@ -101,9 +101,9 @@ namespace GameOfLifeCellVectorBased
                     //For every cell add all cells in a 3 by 3 area to potential new cells
                     foreach (var cell in cells)
                     {
-                        for (var X = -1; X < 1; X++)
+                        for (var X = -1; X < 2; X++)
                         {
-                            for (var Y = -1; Y < 1; Y++)
+                            for (var Y = -1; Y < 2; Y++)
                             {
                                 potentialCells.Add(new Vector2(cell.X + X, cell.Y + Y));
                             }
@@ -115,13 +115,13 @@ namespace GameOfLifeCellVectorBased
                     {
                         if (!checkedCells.Contains(cell))
                         {
+                            checkedCells.Add(cell); 
                             int newCellCount = 0;
                             foreach (var cell2 in potentialCells)
                             {
                                 if (cell == cell2)
                                 {
                                     newCellCount++;
-                                    checkedCells.Add(cell2); 
                                 }
                             }
 
@@ -135,7 +135,7 @@ namespace GameOfLifeCellVectorBased
 
 
                     //Set cells to newCells and clear potential and new
-                    cells = newCells;
+                    cells = new List<Vector2>(newCells);
                     newCells.Clear();
                     potentialCells.Clear();
                 }
