@@ -50,6 +50,8 @@ namespace GameOfLifeCellVectorBased
                 if (Raylib.IsKeyDown(KeyboardKey.KEY_W)) cameraPos.Y--;
                 if (Raylib.IsKeyDown(KeyboardKey.KEY_E)) zoom++;
                 if (Raylib.IsKeyDown(KeyboardKey.KEY_Q)) zoom--;
+                if (Raylib.IsKeyDown(KeyboardKey.KEY_R)) targetGPS += 0.2f;
+                if (Raylib.IsKeyDown(KeyboardKey.KEY_F)) targetGPS -= 0.2f;
                 if (Raylib.IsKeyPressed(KeyboardKey.KEY_SPACE)) editMode = !editMode; 
 
 
@@ -156,10 +158,9 @@ namespace GameOfLifeCellVectorBased
                     (int)((zoom / 2) - (zoom / 20)),
                     (int)((zoom / 2) - (zoom / 20)),
                     new Color(255, 255, 0, 255));
-                    Raylib.DrawText($"{cell.X}\n{cell.Y}",(int)((cell.X - cameraPos.X) * zoom / 2 + zoom / 40),(int)((cell.Y - cameraPos.Y) * zoom / 2 + zoom / 40),10,new Color(0,0,0,255));
                 }
 
-                Raylib.DrawText($"Campos:{cameraPos.X},{cameraPos.Y}\nMouse:{Raylib.GetMouseX()},{Raylib.GetMouseY()}\nCursor:{editCursor.X},{editCursor.Y}\nCellAdd:{editCursor.X+cameraPos.X},{editCursor.Y+cameraPos.Y}\nFrameTime: {Raylib.GetFrameTime()}", 5, 100, 20, new Color(255, 0, 0, 255));
+                Raylib.DrawText($"Camera Position:{cameraPos.X},{cameraPos.Y}\nTarget GPS: {(Math.Round(targetGPS*10))/10}\nFPS: {Raylib.GetFPS()}", 5, 5, 20, new Color(255, 0, 0, 255));
 
                 Raylib.EndDrawing();
 
