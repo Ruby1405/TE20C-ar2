@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Raylib_cs;
 using System.Numerics;
 using System.Collections.Generic;
@@ -28,6 +29,7 @@ namespace GameOfLifeCellVectorBased
             //Initiate a list of current cells and one of potential new cells and new cells
             List<Vector2> cells = new List<Vector2>();
             List<Vector2> potentialCells = new List<Vector2>();
+            List<Vector2> checkedCells = new List<Vector2>();
             List<Vector2> newCells = new List<Vector2>();
 
             cells.Add(new Vector2(0, 0));
@@ -40,10 +42,10 @@ namespace GameOfLifeCellVectorBased
                 Raylib.BeginDrawing();
                 Raylib.ClearBackground(new Color(0, 0, 0, 255));
 
-                if (Raylib.IsKeyDown(KeyboardKey.KEY_A)) cameraPos.X++;
-                if (Raylib.IsKeyDown(KeyboardKey.KEY_D)) cameraPos.X--;
-                if (Raylib.IsKeyDown(KeyboardKey.KEY_W)) cameraPos.Y++;
-                if (Raylib.IsKeyDown(KeyboardKey.KEY_S)) cameraPos.Y--;
+                if (Raylib.IsKeyDown(KeyboardKey.KEY_D)) cameraPos.X++;
+                if (Raylib.IsKeyDown(KeyboardKey.KEY_A)) cameraPos.X--;
+                if (Raylib.IsKeyDown(KeyboardKey.KEY_S)) cameraPos.Y++;
+                if (Raylib.IsKeyDown(KeyboardKey.KEY_W)) cameraPos.Y--;
                 if (Raylib.IsKeyDown(KeyboardKey.KEY_E)) zoom++;
                 if (Raylib.IsKeyDown(KeyboardKey.KEY_Q)) zoom--;
                 if (Raylib.IsKeyPressed(KeyboardKey.KEY_SPACE)) editMode = !editMode; 
@@ -81,16 +83,16 @@ namespace GameOfLifeCellVectorBased
                         bool found = false;
                         foreach (var cell in cells)
                         {
-                            if(cell == new Vector2(editCursor.X,editCursor.Y))
+                            if(cell == new Vector2(editCursor.X-1+cameraPos.X,editCursor.Y-1+cameraPos.Y))
                             {
                                 cells.Remove(cell);
                                 found = true;
                                 break;
                             }
                         }
-                        if (found)
+                        if (!found)
                         {
-                            cells.Add(new Vector2(editCursor.X,editCursor.Y));
+                            cells.Add(new Vector2(editCursor.X-1+cameraPos.X,editCursor.Y-1+cameraPos.Y));
                         }
                     }
                 }
@@ -111,22 +113,27 @@ namespace GameOfLifeCellVectorBased
                     //Count the amount of occurences of a cell in the potential cells list
                     foreach (var cell in potentialCells)
                     {
-                        int newCellCount = 0;
-                        foreach (var cell2 in potentialCells)
+                        if (!checkedCells.Contains(cell))
                         {
-                            if (cell == cell2)
+                            int newCellCount = 0;
+                            foreach (var cell2 in potentialCells)
                             {
-                                newCellCount++;
-                                potentialCells.Remove(cell2);
+                                if (cell == cell2)
+                                {
+                                    newCellCount++;
+                                    checkedCells.Add(cell2); 
+                                }
+                            }
+
+                            //Refer to the rules of game of life
+                            if ((newCellCount == 3 && !cells.Contains(cell)) || (newCellCount > 2 && newCellCount < 5 && cells.Contains(cell)))
+                            {
+                                newCells.Add(cell);
                             }
                         }
-
-                        //Refer to the rules of game of life
-                        if ((newCellCount == 3 && !cells.Contains(cell)) || (newCellCount > 2 && newCellCount < 5 && cells.Contains(cell)))
-                        {
-                            newCells.Add(cell);
-                        }
                     }
+
+
                     //Set cells to newCells and clear potential and new
                     cells = newCells;
                     newCells.Clear();
@@ -141,9 +148,10 @@ namespace GameOfLifeCellVectorBased
                     (int)((zoom / 2) - (zoom / 20)),
                     (int)((zoom / 2) - (zoom / 20)),
                     new Color(255, 255, 0, 255));
+                    Raylib.DrawText($"{cell.X}\n{cell.Y}",(int)((cell.X - cameraPos.X) * zoom / 2 + zoom / 40),(int)((cell.Y - cameraPos.Y) * zoom / 2 + zoom / 40),10,new Color(0,0,0,255));
                 }
 
-                Raylib.DrawText($"Campos:{cameraPos.X},{cameraPos.Y}\nMouse:{Raylib.GetMouseX()},{Raylib.GetMouseY()}\nCursor:{editCursor.X},{editCursor.Y}", 5, 100, 20, new Color(255, 0, 0, 255));
+                Raylib.DrawText($"Campos:{cameraPos.X},{cameraPos.Y}\nMouse:{Raylib.GetMouseX()},{Raylib.GetMouseY()}\nCursor:{editCursor.X},{editCursor.Y}\nCellAdd:{editCursor.X+cameraPos.X},{editCursor.Y+cameraPos.Y}", 5, 100, 20, new Color(255, 0, 0, 255));
 
                 Raylib.EndDrawing();
             }
